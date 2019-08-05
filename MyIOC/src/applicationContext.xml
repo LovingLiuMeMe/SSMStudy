@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean id="StudenServiceImpl" class="cn.lovingliu.service.impl.StudentServiceImpl">
+        <property name="name" value="刘先生"/>
+        <property name="type" value="学生"/>
+    </bean>
+    <bean id="TeacherServiceImpl" class="cn.lovingliu.service.impl.TeacherServiceImpl">
+        <property name="name" value="唐小姐"/>
+        <property name="type" value="老师"/>
+        <property name="student" ref="StudenServiceImpl"/>
+    </bean>
+</beans>
