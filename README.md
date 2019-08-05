@@ -1,4 +1,4 @@
-# SSMStudy
+# 自己实现SpringIOC
 ```
 javaEE分三层开发 WEB层，业务层，持久层
 IOC:控制反转 将对象的创建的权利交给Spring，同时将关系对象之间的关系的维护也交给Spring
