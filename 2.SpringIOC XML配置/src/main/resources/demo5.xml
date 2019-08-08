@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 构造函数注入-->
+    <bean id="user" class="cn.lovingliu.ioc.demo5.User">
+        <constructor-arg name="name" value="刘波" />
+        <constructor-arg name="age" value="1" type="java.lang.Integer"/>
+    </bean>
+    <!-- set属性注入-->
+    <bean id="cat" class="cn.lovingliu.ioc.demo5.Cat">
+        <property name="name" value="小明" />
+        <property name="dec" value="白色的毛 非常的可爱呢!" />
+    </bean>
+    <bean id="person" class="cn.lovingliu.ioc.demo5.Person">
+        <property name="name" value="张三" />
+        <property name="age" value="10" />
+        <property name="cat" ref="cat" />
+    </bean>
+
+    <!-- p名称空间注入 -->
+    <!-- 增加xmlns -->
+    <bean id="people" class="cn.lovingliu.ioc.demo5.People" p:name="小王" p:age="24" p:cat-ref="cat"/>
+
+    <!-- spel方式的属性注入 处理对象关系之间复杂的依赖 -->
+    <bean id="category" class="cn.lovingliu.ioc.demo5.spel.Category">
+        <property name="name" value="#{'电子产品'}" />
+    </bean>
+    <bean id="productutil" class="cn.lovingliu.ioc.demo5.spel.ProductUtil">
+    </bean>
+
+    <bean id="product" class="cn.lovingliu.ioc.demo5.spel.Product">
+        <property name="name" value="#{'ReadMi K20Pro'}" />
+        <property name="price" value="#{2499-300}" /> <!--支持简单的表达式-->
+        <property name="category" value="#{category}" /> <!--支持实例对象 等同于 ref-->
+        <property name="discountPrice" value="#{productutil.crateDiscountPrice()}" /> <!--甚至可以支持 实力对象的方法-->
+    </bean>
+</beans>

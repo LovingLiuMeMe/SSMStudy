@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- Spring中Bean的生命周期步骤详解-->
+    <bean name="woman" class="cn.lovingliu.ioc.demo3.lifecycle.Woman" init-method="initMethod" destroy-method="destoryMethod">
+        <property name="name" value="刘波"></property>
+    </bean>
+    <!-- id或name 存在的目的是在我们实例化对象的时候 会使用到的。而BeanPostProcessor 是在实例化过程自动调用的-->
+    <!-- 注意:这里是每一个类都会进行生效-->
+    <bean class="cn.lovingliu.ioc.demo3.lifecycle.MyBeanPostProcessor"/>
+</beans>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 复杂的数据结构 -->
+    <bean id="randomUtil" class="cn.lovingliu.ioc.demo6.Util" />
+    <bean id="item" class="cn.lovingliu.ioc.demo6.Item" scope="prototype">
+        <property name="name" value="#{randomUtil.getRandom()}" />
+    </bean>
+
+    <bean id="collectionBean" class="cn.lovingliu.ioc.demo6.CollectionBean">
+        <!-- 1.数组类型 -->
+        <property name="arr">
+            <list>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+            </list>
+        </property>
+        <!-- 2.List数组类型 -->
+        <property name="list">
+            <list>
+                <ref bean="item" />
+            </list>
+        </property>
+        <!-- 3.List数组类型 -->
+        <property name="set">
+            <set>
+                <value>111</value>
+                <value>222</value>
+                <value>333</value>
+            </set>
+        </property>
+        <!-- 4.Map集合的属性注入 -->
+        <property name="map">
+            <map>
+                <entry key="a" value="111"/>
+                <entry key="b" value="222"/>
+                <entry key="c" value="333"/>
+            </map>
+        </property>
+        <!-- 5.Properties属性注入 -->
+        <property name="properties">
+            <props>
+                <prop key="username">root</prop>
+                <prop key="password">123456</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
