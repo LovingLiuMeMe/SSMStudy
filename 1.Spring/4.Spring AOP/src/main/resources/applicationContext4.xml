@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 配置目标类 -->
+    <bean id="studentDao" class="cn.lovingliu.aop.demo7.StudentDaoImpl" />
+    <bean id="customerDao" class="cn.lovingliu.aop.demo7.CustomerDao" />
+
+    <!-- 配置增强 -->
+    <bean id="myBeforeAdvice" class="cn.lovingliu.aop.demo7.MyBeforeAdvice" />
+    <bean id="myArroundAdvice" class="cn.lovingliu.aop.demo7.MyAroundAdvice" />
+
+    <!-- 配置切面 -->
+    <bean id="myAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="pattern" value=".*save.*" />
+        <property name="advice" ref="myArroundAdvice" />
+    </bean>
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+
+    </bean>
+</beans>
