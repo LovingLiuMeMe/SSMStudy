@@ -43,7 +43,7 @@ public class CalculateServiceImpl {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 CalculateDaoImpl calculateDaoImpl = new CalculateDaoImpl();
-                Object result = method.invoke(calculateDaoImpl,args);
+                Object result = method.invoke(calculateDaoImpl,args); // method.invoke(target,args) 调用目标对象的 指定的方法
                 return result;
             }
         });
