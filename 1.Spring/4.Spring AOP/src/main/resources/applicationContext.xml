@@ -14,7 +14,7 @@
         <property name="target" ref="studentDao" />
         <!-- 2.实现的接口 -->
         <property name="proxyInterfaces" value="cn.lovingliu.aop.demo4.StudentDao" />
-        <!-- 3.采用拦截的名称 -->
+        <!-- 3.要采用拦截器 和 上面定义的对应 -->
         <property name="interceptorNames" value="myBeforeAdvice" />
         <!-- 4.强制使用cglib代理 -->
         <property name="optimize" value="true" />
