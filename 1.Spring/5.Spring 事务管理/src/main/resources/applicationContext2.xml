@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+    <!-- 引入外部问价 -->
+    <context:property-placeholder location="jdbc.properties" />
+    <!-- 配置c3p0连接迟 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" >
+        <property name="driverClass" value="${jdbc.className}"></property>
+        <property name="jdbcUrl" value="${jdbc.url}"></property>
+        <property name="user" value="${jdbc.user}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+
+    <!-- 配置业务层 -->
+    <bean id="accountService" class="cn.lovingliu.demo2.AccountServiceImpl"/>
+    <!-- 配置Dao层 -->
+    <bean id="accountDao" class="cn.lovingliu.demo2.AccountDaoImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <!-- 配置事务的通知:(事务的增强) -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--
+                配置详情
+                propagation:事务传播行为
+                isolation:隔离级别
+                read-only:只读
+                rollback-for: 发生哪些异常回滚
+                no-rollback-for: 发生哪些异常不回滚
+                timeout:过期信息
+            -->
+            <tx:method name="get*" read-only="true" />
+            <tx:method name="transfer" propagation="REQUIRED"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 配置切面 -->
+    <aop:config>
+        <!-- 配置切点 -->
+        <aop:pointcut id="pointcut1" expression="execution(* cn.lovingliu.demo2.AccountService+.*(..))"/>
+        <!-- 配置切面 -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut1"/>
+    </aop:config>
+</beans>

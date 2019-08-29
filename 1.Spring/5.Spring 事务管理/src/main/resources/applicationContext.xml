@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- 引入外部问价 -->
+    <context:property-placeholder location="jdbc.properties" />
+    <!-- 配置c3p0连接迟 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" >
+        <property name="driverClass" value="${jdbc.className}"></property>
+        <property name="jdbcUrl" value="${jdbc.url}"></property>
+        <property name="user" value="${jdbc.user}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+
+    <!-- 配置业务层 -->
+    <bean id="accountService" class="cn.lovingliu.demo1.AccountServiceImpl"/>
+    <!-- 配置Dao层 -->
+    <bean id="accountDao" class="cn.lovingliu.demo1.AccountDaoImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <!-- 配置事务管理器: -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <!-- 配置代理: -->
+    <bean id="accountServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <!-- 配置目标对象 -->
+        <property name="target" ref="accountService"/>
+        <!-- 注入事务管理器 -->
+        <property name="transactionManager" ref="transactionManager"/>
+        <!-- 配置管理信息 -->
+        <property name="transactionAttributes">
+            <props>
+                <!-- prop的格式:
+                    PROPAGATION: 事务的传播行为.
+                    ISOLATION: 事务的隔离级别.
+                    readOnly: 是否只读
+                    Exception: 发生那些异常事务不会滚
+                -->
+                <prop key="transfer">PROPAGATION_REQUIRED</prop>
+                <!-- 解释以下:
+                    <prop key="transfer">PROPAGATION_REQUIRED,ISOLATION_REPEATABLE_READ,readOnly,-java.lang.NullPointerException,+java.lang.ArithmeticException</prop>
+                    事务的传播行为是:PROPAGATION_REQUIRED
+                    事务的隔离级别:ISOLATION_REPEATABLE_READ
+                    readOnly:只读（若尝试进行增删改操作 会报错）
+                    -java.lang.NullPointerException:当发生java.lang.NullPointerException异常时 回滚事务
+                    +java.lang.ArithmeticException:当发生java.lang.ArithmeticException异常时 不回滚事务
+                -->
+            </props>
+        </property>
+    </bean>
+
+</beans>
