@@ -26,6 +26,18 @@ public class DemoTest {
         customerDao.find();
         customerDao.delete();
         customerDao.update();
+        //环绕前增强-------------
+        //增加学生
+        //环绕后增强-------------
+        //删除学生
+        //删除学生
+        //修改学生
+        //环绕前增强-------------
+        //CustomerDao 保存
+        //环绕后增强-------------
+        //CustomerDao 查询
+        //CustomerDao 删除
+        //CustomerDao 更新
     }
 
 }
