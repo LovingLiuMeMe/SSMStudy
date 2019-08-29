@@ -17,6 +17,7 @@
     <!-- 配置产生代理 -->
     <bean id="studentDaoProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="target" ref="studentDao" />
+        <!-- true:无论是否实现接口 都使用CGLIB代理 false: 实现了接口 使用JDK动态代理，未实现接口 使用CGLIB代理 -->
         <property name="proxyTargetClass" value="true" />
         <property name="interceptorNames" value="myAdvisor" />
     </bean>
