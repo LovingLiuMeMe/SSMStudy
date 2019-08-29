@@ -301,7 +301,7 @@ Spring 方法的连接点，不提供属性连接点
 8.Aspect(切面):
 是切入点和通知(引介)的结合
 ```
-####Spring AOP增强类型
+#### Spring AOP增强类型
 Spring按照通知Advice在目标类方法的连接点位置，可以分为5类  
     1.前置通知 MethodBeforeAdvice  
     2.后置通知 AfterReturningAdvice  
@@ -309,7 +309,7 @@ Spring按照通知Advice在目标类方法的连接点位置，可以分为5类
     4.异常通知 ThrowsAdvice
     5.引介通知 IntroductionIntercepter  
     
-####Spring AOP切面类型
+#### Spring AOP切面类型
 Advisor:代表一般切面,Advice本身就是一个切面,对目标类所有方法进行拦截  
 PointcutAdvisor:代表具有切点的切面，可以指定拦截目标类的哪些方法  
 IntroductionAdvisor:代表引介切面，针对引介通知而使用的切面（可不掌握)  
@@ -328,10 +328,10 @@ interceptorNames:需要织入目标的Advice
 singleton:返回代理是否为单实例，默认为单例
 optimize:当设置为true时，强制使用CGLIB
 ``` 
-###DEMO4
+### DEMO4
 实现的是普通的Advisor作为切面，将对目标类所有的方法进行拦截，不够灵活，在实际开发中长采用带有切点的切面
 
-###DEMO5
+### DEMO5
 常用的带有切入点的实现类  
 1.DefaultPointcutAdvisor 最常用的切面类型，它可以通过任意的Pointcut和Advice组合定义切面
 2.JdkRegexpMethodPointcut 构造正则表达式切点
@@ -341,9 +341,9 @@ optimize:当设置为true时，强制使用CGLIB
 1.BeanNameAutoProxyCreator 根据Bean名称创建代理
 2.DefaultAdvisorAutoProxyCreator 根据Advisor本身包含的信息产生代理
 3.AnnotationAwareAspectJAutoProxyCreator 基于Bean中的AspectJ注解进行自动代理
-###DEMO6
+### DEMO6
 第一种方式:BeanNameAutoProxyCreator
 但是还是会对所有的方法进行增强 这不符合实际要求
 
-###DEMO7
+### DEMO7
 第二种方式:DefaultAdvisorAutoProxyCreator
