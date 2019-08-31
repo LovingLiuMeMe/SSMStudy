@@ -1,7 +1,7 @@
-##Spring事务
-###1.什么是事务
+## Spring事务
+### 1.什么是事务
 事务是正确执行一系列的操作（或动作），使得数据库从一种状态转换 成另一种状态，且保证操作全部成功，或者全部失败。  
-###2.事务原则是什么
+### 2.事务原则是什么
 事务必须服从ISO/IEC所制定的ACID原则。  
 ACID原则的具体内涵如下： 事务简介  
 原子性（ Atomicity ）：  
@@ -16,7 +16,7 @@ ACID原则的具体内涵如下： 事务简介
 持久性（ Durability ）：  
 事务正确提交后，其结果将永久保存在数据库中。
 
-###3.java事务
+### 3.java事务
 **Java事务的产生**  
 程序操作数据库的需要。以Java编写的程序或系统，实现ACID的操作。  
 **Java事务实现**  
@@ -24,7 +24,7 @@ ACID原则的具体内涵如下： 事务简介
 确保事务—要么全部执行成功，要么撤销不执行。  
 总结：Java事务机制和原理就是操作确保数据库操作的ACID特性。
 
-####4.事务读取类型说明
+#### 4.事务读取类型说明
 1.脏读  
 事务还没有提交，就开始读取数据。读到的数据肯定不是最新的
 2.不可重复读  
@@ -40,7 +40,7 @@ ACID原则的具体内涵如下： 事务简介
 再来一个事务3 对该表进行读取时 数据为{A:女,B:女,C:女,D:男}。给人一种错觉,就是明明已经全部修改了啊,怎么还留了一个。
 ```
 
-##Spring 事务
+## Spring 事务
 Spring中的事务管理：Spring提供了一组接口进行事务的管理。
 
 Spring提供事务管理的3个接口：  
@@ -120,7 +120,7 @@ Sring事务管理时,这三个接口是有联系的，Spring首先会根据事�
     </props>
 </property>
 ``` 
-###DEMO2 基于AspectJ的XML方式的配置
+### DEMO2 基于AspectJ的XML方式的配置
 1.<aop:advisor>配置
 2.<aop:aspect> 配置
 ```java
@@ -205,7 +205,7 @@ public class SimpleProfiler implements Ordered {
 
 </beans>
 ```
-###DEMO3 基于注解的开发
+### DEMO3 基于注解的开发
 ```java
 public class ProductServiceImpl implements ProductService {
 

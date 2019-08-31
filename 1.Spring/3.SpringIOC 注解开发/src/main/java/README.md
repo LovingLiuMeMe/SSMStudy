@@ -1,4 +1,4 @@
-##DEMO1
+## DEMO1
 使用注解完成类的IOC
 1.applicationContext.xml的改变
 ```xml
@@ -54,9 +54,9 @@ Spring2.5之后提供了注解方式的自动装配。
 @AutoWired+@Qualifier("userDao") == @Resource(name="userDao")
 @Autowired注解是byType类型的，因此会将接口的实现类取代接口，自动装配给控制类
 ```
-##DEMO2 
+## DEMO2 
 验证了自动装配的重要性
-##DEMO3
+## DEMO3
 1.在使用xml配置的时候 可以使用`init-method`，`destroy-method` 在对象实例化的创建和销毁的时候调用。  
 注: destroy-method 方法只有在scoped属性为singleton的时候才生效
 ```xml
